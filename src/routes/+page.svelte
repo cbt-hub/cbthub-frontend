@@ -1,7 +1,11 @@
 <script>
-	import Counter from './Counter.svelte';
+	import Categories from './Categories.svelte';
 	import welcome from '$lib/images/svelte-welcome.webp';
 	import welcome_fallback from '$lib/images/svelte-welcome.png';
+	/**
+	 * TODO: 이 곳에 등록한 카테고리 정보들이 뜰 것임
+	 * TODO: 근데 좀 이쁘게 뜨는 것을 원함.
+	*/
 </script>
 
 <svelte:head>
@@ -10,6 +14,7 @@
 </svelte:head>
 
 <section>
+	
 	<h1>
 		<span class="welcome">
 			<picture>
@@ -25,7 +30,7 @@
 		try editing <strong>src/routes/+page.svelte</strong>
 	</h2>
 
-	<Counter />
+	<Categories />
 </section>
 
 <style>

@@ -11,6 +11,11 @@
 		// handle negative numbers
 		return ((n % m) + m) % m;
 	}
+	/**
+	 * @link https://janet.co.kr/
+	 * - 메인 페이지에 카테고리 보여주는 것은 이런 느낌이 좋을 듯
+	 * - BACKEND-TODO: 카테고리에 삽입할 이미지가 있어야 한다.
+	*/
 </script>
 
 <div class="counter">
