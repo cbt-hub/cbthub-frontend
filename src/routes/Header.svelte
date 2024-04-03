@@ -13,34 +13,30 @@
 </script>
 
 <header>
-  <div class="header-container">
-    <div class="left-side">
-      <div class="logo">
-		<p class="logo">cbthub</p>
+  <div class="header-container flex items-center px-20">
+    <div class="left-side py-2">
+      <div class="logo flex items-center text-4xl py-2">
+		<p class="logo text-6xl">cbthub</p>
 	  </div>
-      <div class="search"></div>
+      <div class="search">
+		<div class="flex items-center">
+			<form class="flex border-2 rounded items-center bg-white">
+				<i class="fa-solid fa-magnifying-glass text-2xl px-2"></i>
+				<input type="text" class="px-2 py-2" placeholder="자격증 검색.." />
+			</form>
+		</div>
+	  </div>
     </div>
     <div class="right-side">
-      <div class="me"></div>
+      <div class="me">
+		<i class="fa-solid fa-user text-4xl"></i>
+	  </div>
     </div>
-  </div>
-  
-
-  <div class="max-w-sm rounded overflow-hidden shadow-lg p-5 bg-white">
-	<img class="w-full" src="https://post-phinf.pstatic.net/MjAyMTA5MDhfMjI5/MDAxNjMxMDg2ODAzNDcz.3016NkIqr1r8lXuugfrHlKmwH4qSH_bLVUOuNcROteUg.HDxFlQuHOqV9uuWXvLAYYidpn2s7-obD544L9Dekt0kg.JPEG/k5qej1u8dy361.jpg?type=w800_q75" alt="Sunset in the mountains">
-	<div class="px-6 py-4">
-	  <div class="font-bold text-xl mb-2">The Coldest Sunset</div>
-	  <p class="text-gray-700 text-base">
-		Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus quia, nulla! Maiores et perferendis eaque, exercitationem praesentium nihil.
-	  </p>
-	</div>
-	<div class="px-6 pt-4 pb-2">
-	  <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-		Read More
-	  </button>
-	</div>
   </div>
 </header>
 
 <style>
+	.header-container {
+		justify-content: space-between;
+	}
 </style>
