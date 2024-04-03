@@ -8,11 +8,11 @@
 	 * TODO: 3. 마이페이지 및 로그인 버튼 - 로그인, 프로필, 로그보기 등 가능
 	 * @link https://finviz.com/
 	 * - header는 딱 이런 느낌으로 하면 될듯. 
-
 	*/
 </script>
 
 <header>
+	<i class="fa-solid fa-house"></i>
   <div class="header-container">
     <div class="left-side">
       <div class="logo">
