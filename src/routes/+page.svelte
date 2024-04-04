@@ -1,5 +1,5 @@
 <script>
-  import Categories from "./Categories.svelte";
+  import Category from "./Category.svelte";
   import welcome from "$lib/images/svelte-welcome.webp";
   import welcome_fallback from "$lib/images/svelte-welcome.png";
   /**
@@ -29,7 +29,7 @@
     try editing <strong>src/routes/+page.svelte</strong>
   </h2>
 
-  <Categories />
+  <Category />
 </section>
 
 <style lang="postcss">
