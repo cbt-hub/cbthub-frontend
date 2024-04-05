@@ -1,15 +1,17 @@
 <script lang="ts">
   import { goto } from "$app/navigation";
   import { onMount } from "svelte";
-  import { fetchCategories } from "../lib/api";
+  import { fetchCategories, fetchCategoryRounds } from "../lib/api";
 
   let categories : any[] = [];
+  let rounds : any[] = [];
+  let selectedCategoryId: string | null = null;
 
   onMount(async () => {
     categories = await fetchCategories();
     console.log(categories);
   });
-  
+
   function navigateToRound(id: string) {
     goto(`/category/${id}`);
   }
