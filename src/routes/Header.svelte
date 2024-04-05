@@ -7,7 +7,7 @@
   </script>
 
 <header>
-  <div class="header-container flex items-center px-20 bg-gray-50 justify-between">
+  <div class="header-container flex items-center px-20 bg-gray-50 justify-between mb-6">
     <div class="left-side py-2 flex items-center">
       <div class="logo flex items-center text-4xl py-2">
 		<p class="logo text-6xl" ><a href="/">cbthub</a></p>
