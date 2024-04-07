@@ -15,7 +15,7 @@
   FIXME: 카테고리가 '비율'로 나오게끔 바꿔야 함
   - 현재는 비율로 나오지 않아 반응형에 굉장히 취약하다.
  -->
-<section class="m-4 grid grid-cols-4 px-20 py-8">
+<section class="m-4 flex px-32 py-8">
   <Category />
 </section>
 

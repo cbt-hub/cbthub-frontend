@@ -18,7 +18,7 @@
 </script>
 
 {#each categories as { id, name, createdAt }, index}
-  <category class="category-card m-1">
+  <category class="category-card m-3">
     <div class="flex justify-center items-center text-center flex-col w-52">
       <button class="cat-img relative" on:click={() => navigateToRound(String(id))}>
         <img
