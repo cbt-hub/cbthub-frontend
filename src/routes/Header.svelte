@@ -1,27 +1,51 @@
 <script lang="ts">
   import { goto } from "$app/navigation";
+  import { verifyToken } from "$lib/api";
   import { onMount } from "svelte";
+  import { writable } from "svelte/store";
+
+  type LoginState = {
+    isValid: boolean;
+    uuid?: string;
+  } | null;
+
+  const loginState = writable<LoginState>(null);
+
+  onMount(async () => {
+    /**
+     * @description accessToken 유효성 검사
+     */
+    const accessToken = localStorage.getItem("access_token");
+    if (accessToken) {
+      const { isValid, uuid } = await verifyToken(accessToken);
+      loginState.set({ isValid, uuid }); // 로그인 상태 업데이트
+    } else {
+      loginState.set({ isValid: false }); // 토큰이 없는 경우 로그인 상태를 false로 설정
+    }
+
+    /**
+     * @description 검색창에 포커스가 되었을 때, 테두리 스타일을 추가하고 포커스가 해제되면 제거합니다.
+     */
+    const formElement = document.querySelector("form");
+    const inputElement = document.querySelector("input");
+
+    inputElement?.addEventListener("focus", () => {
+      formElement?.classList.add("border-blue-400", "border-2"); // 포커스 스타일 추가
+    });
+
+    inputElement?.addEventListener("blur", () => {
+      formElement?.classList.remove("border-blue-400", "border-2");
+      formElement?.classList.add("border-2"); // 포커스 스타일 제거
+    });
+  });
 
   function navigateToMe() {
     goto("/me");
   }
 
-  onMount(() => {
-    // form 요소와 input 요소 선택
-    const formElement = document.querySelector("form");
-    const inputElement = document.querySelector("input");
-
-    // input 요소에 포커스가 있을 때 form의 스타일 변경
-    inputElement?.addEventListener("focus", () => {
-      formElement?.classList.add("border-blue-400", "border-2"); // 포커스 스타일 추가
-    });
-
-    // input 요소에서 포커스가 사라질 때 form의 스타일 복원
-    inputElement?.addEventListener("blur", () => {
-		formElement?.classList.remove("border-blue-400", "border-2");
-      formElement?.classList.add("border-2"); // 포커스 스타일 제거
-    });
-  });
+  function navigateToLogin() {
+    goto("/login");
+  }
 </script>
 
 <header>
@@ -46,12 +70,25 @@
       </div>
     </div>
     <div class="right-side">
-      <button
-        class="me h-12 w-12 rounded-full border-2 border-gray-400 flex justify-center items-center"
-        on:click={navigateToMe}
-      >
-        <i class="fa-solid fa-user text-2xl text-gray-500"></i>
-      </button>
+      {#if $loginState === null}
+        <!-- 로그인 상태 확인 중 아무 것도 표시하지 않음 -->
+      {:else if $loginState.isValid}
+        <!-- 로그인 상태가 확인되었을 때 버튼 표시 -->
+        <button
+          class="me h-12 w-12 rounded-full border-2 border-gray-400 flex justify-center items-center"
+          on:click={navigateToMe}
+        >
+          <i class="fa-solid fa-user text-2xl text-gray-500"></i>
+        </button>
+      {:else}
+        <!-- 로그인 되지 않은 상태에서 '로그인' 버튼 표시 -->
+        <button
+          class="login h-12 px-4 rounded-full border-2 border-gray-400 flex justify-center items-center"
+          on:click={navigateToLogin}
+        >
+          로그인
+        </button>
+      {/if}
     </div>
   </div>
 </header>
