@@ -66,6 +66,28 @@ export async function login(username: string, password: string): Promise<any> {
   }
 }
 
+export async function fetchWithAuth(url: string, options: RequestInit = {}) {
+  const accessToken = localStorage.getItem("access_token");
+  if (!accessToken) {
+    console.error("Access Token이 없습니다. 로그인이 필요합니다.");
+    throw new Error("로그인이 필요합니다.");
+  }
+
+  const headers = new Headers(options.headers || {});
+  headers.append("Authorization", `Bearer ${accessToken}`);
+
+  const response = await fetch(url, {
+    ...options,
+    headers,
+  });
+
+  if (!response.ok) {
+    throw new Error("Network response was not ok");
+  }
+
+  return response.json();
+}
+
 export async function join(
   username: string,
   nickname: string,

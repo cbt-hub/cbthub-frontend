@@ -1,6 +1,6 @@
 <script lang="ts">
+  import { goto } from "$app/navigation";
   import { login } from "$lib/api";
-  import { onMount } from "svelte";
 
 	let email = '';
 	let password = '';
@@ -10,7 +10,8 @@
 		try {
 			const data = await login(email, password);
 			console.log('로그인 성공:', data);
-			// TODO: 로그인 성공 처리
+			localStorage.setItem('access_token', data.access_token); // 발급받은 JWT를 로컬 스토리지에 저장
+			goto('/');
 		} catch (error) {
 			console.error((error as Error).message);
 			// TODO: 실패 로직 처리
@@ -19,10 +20,9 @@
 
 	/**
 	 * TODO:
-	 * 1. input 박스 색상 변경
-	 * 2. 비밀번호 찾기 기능
-	 * 3. 약관
-	 * 4. 소셜 로그인 연동
+	 * 1. 비밀번호 찾기 기능
+	 * 2. 약관
+	 * 3. 소셜 로그인 연동
 	*/
 </script>
 

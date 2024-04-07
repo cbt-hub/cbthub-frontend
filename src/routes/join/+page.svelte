@@ -1,7 +1,9 @@
 <script lang="ts">
+  import { goto } from "$app/navigation";
   /**
    * TODO: GPT처럼 이메일 및 닉네임 입력 -> 비밀번호 입력
    * TODO: 이메일 인증 시스템 추가하기
+   * TODO: 패스워드 체크 기능 만들기
    */
   import { join } from "$lib/api";
 
@@ -13,9 +15,10 @@
   async function handleJoin(e: SubmitEvent) {
     e.preventDefault();
     try {
+      //TODO: 로그인 페이지로 리다이렉트가 아니라, 홈으로 가면서 자동으로 로그인
       const data = await join(email, password, nickname);
       console.log("회원가입 성공:", data);
-      location.href = "/login";
+      goto('/login');
     } catch (error) {
       //TODO: 에러 메시지를 사용자에게 보여주기
       console.error((error as Error).message);
@@ -68,7 +71,7 @@
         >회원 가입</button
       >
     </form>
-    <p class="error w-72 text-red-500"></p>
+    <p class="error w-72 text-red-500 text-sm"></p>
   </div>
 </div>
 
