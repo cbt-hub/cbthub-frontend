@@ -11,7 +11,7 @@
 			const data = await login(email, password);
 			console.log('로그인 성공:', data);
 			localStorage.setItem('access_token', data.access_token); // 발급받은 JWT를 로컬 스토리지에 저장
-			goto('/');
+			location.href = '/';
 		} catch (error) {
 			console.error((error as Error).message);
 			// TODO: 실패 로직 처리

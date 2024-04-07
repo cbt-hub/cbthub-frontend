@@ -74,10 +74,11 @@ export async function login(username: string, password: string): Promise<any> {
 
 /**
  * @description 토큰 유효성 검사
+ * @return 토큰이 유효하면 valid, uuid를 반환한다.
  */
-export async function verifyToken(accessToken: string): Promise<Boolean> {
+export async function verifyToken(accessToken: string | null) {
   try {
-    const response = await fetch("/verifyToken", {
+    const response = await fetch(`${API_URL}/v1/auth/verify`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -85,16 +86,20 @@ export async function verifyToken(accessToken: string): Promise<Boolean> {
       },
     });
 
-    if (response.ok) {
-      // 서버에서 토큰이 유효하다고 확인되면
-      return true;
+    const data = await response.json();
+
+    if (data.valid) {
+      console.log(`token is valid: ${data.decoded.uuid}`);
+
+      return { isValid: true, uuid: data.decoded.uuid };
     } else {
-      // 토큰이 유효하지 않음
-      return false;
+      console.log(`token is invalid`);
+
+      return { isValid: false };
     }
   } catch (error) {
     console.error("토큰 검증 중 오류가 발생했습니다.", error);
-    return false;
+    return { isValid: false };
   }
 }
 
