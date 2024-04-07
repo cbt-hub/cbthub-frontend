@@ -8,7 +8,6 @@
   let category: any = {};
   let categoryId = "";
 
-
   $: categoryId = $page.params.id;
 
   onMount(async () => {
@@ -29,28 +28,30 @@
   <meta name="description" content="About this app" />
 </svelte:head>
 
-<h1>{category.name}</h1>
-{#if rounds.length > 0}
-  <table>
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Held At</th>
-        <th>Progress Rate</th>
-        <!-- 필요한 다른 헤더 추가 -->
-      </tr>
-    </thead>
-    <tbody>
-      {#each rounds as round}
-        <tr>
-          <td>{round.name}</td>
-          <td>{new Date(round.heldAt).toLocaleDateString()}</td>
-          <td>{round.progressRate ?? "N/A"}</td>
-          <!-- 필요한 다른 셀 추가 -->
-        </tr>
-      {/each}
-    </tbody>
-  </table>
-{:else}
-  <p>No rounds available for this category.</p>
-{/if}
+<div class="flex justify-center flex-col">
+  <div><h1 class="text-4xl">{category.name}</h1></div>
+  <div class="m-14 flex justify-center">
+    {#if rounds.length > 0}
+      <table class="text-xl text-gray-600">
+        <thead>
+          <tr>
+            <th class="p-2">회차</th>
+            <th class="p-2">개최일</th>
+            <th class="p-2"></th>
+          </tr>
+        </thead>
+        <tbody>
+          {#each rounds as round}
+            <tr>
+              <td class="p-1 pr-8"><a href="#">{round.name}</a></td>
+              <td class="p-1 pr-8">{new Date(round.heldAt).toLocaleDateString()}</td>
+              <td class="p-1 pr-8">{round.progressRate ?? ""}</td>
+            </tr>
+          {/each}
+        </tbody>
+      </table>
+    {:else}
+      <p>No rounds available for this category.</p>
+    {/if}
+  </div>
+</div>
