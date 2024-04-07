@@ -43,3 +43,19 @@ export async function fetchCategoryRounds(categoryId: string) {
     throw error;
   }
 }
+
+export async function login(username: string, password: string): Promise<any> {
+  const response = await fetch(`${API_URL}/v1/auth/signin`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ username, password }),
+  });
+
+  if (response.ok) {
+    return response.json();
+  } else {
+    throw new Error("로그인 실패");
+  }
+}
