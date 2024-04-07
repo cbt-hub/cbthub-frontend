@@ -7,24 +7,26 @@
   }
 
   onMount(() => {
-    // form 요소와 input 요소 선택
+    /**
+     * @description accessToken 유효성 검사
+     */
+    const accessToken = localStorage.getItem("access_token");
+
+    /**
+     * @description 검색창에 포커스가 되었을 때, 테두리 스타일을 추가하고 포커스가 해제되면 제거합니다.
+     */
     const formElement = document.querySelector("form");
     const inputElement = document.querySelector("input");
 
-    // input 요소에 포커스가 있을 때 form의 스타일 변경
     inputElement?.addEventListener("focus", () => {
       formElement?.classList.add("border-blue-400", "border-2"); // 포커스 스타일 추가
     });
 
-    // input 요소에서 포커스가 사라질 때 form의 스타일 복원
     inputElement?.addEventListener("blur", () => {
-		formElement?.classList.remove("border-blue-400", "border-2");
+      formElement?.classList.remove("border-blue-400", "border-2");
       formElement?.classList.add("border-2"); // 포커스 스타일 제거
     });
   });
-
-  // TODO: 로그인 X: `로그인` 이라는 글씨
-  // TODO: 로그인 O: `내 정보 /me`
 </script>
 
 <header>
