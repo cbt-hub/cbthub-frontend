@@ -86,7 +86,7 @@ export async function join(
   if (!response.ok) {
     const error = await response.json();
     console.error("Failed to create user:", error.message);
-    return;
+    throw new Error(error.message.message);
   }
 
   const data = await response.json();
