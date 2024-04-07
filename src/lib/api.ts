@@ -1,6 +1,12 @@
 // src/lib/api.ts
 const API_URL = "http://localhost:3000/api";
 
+/**
+ * 카테고리를 단일 조회한다.
+ * - 그 카테고리에 맞는 round 정보를 가져온다.
+ * @param categoryId
+ * @returns
+ */
 export async function fetchCategory(categoryId: string) {
   try {
     const response = await fetch(`${API_URL}/v1/categories/${categoryId}`);
@@ -58,4 +64,31 @@ export async function login(username: string, password: string): Promise<any> {
   } else {
     throw new Error("로그인 실패");
   }
+}
+
+export async function join(
+  username: string,
+  nickname: string,
+  password: string
+): Promise<any> {
+  const response = await fetch(`${API_URL}/v1/users`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      username: username,
+      nickname: nickname,
+      password: password,
+    }),
+  });
+
+  if (!response.ok) {
+    const error = await response.json();
+    console.error("Failed to create user:", error.message);
+    return;
+  }
+
+  const data = await response.json();
+  console.log("User created:", data);
 }

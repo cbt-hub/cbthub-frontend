@@ -22,6 +22,9 @@
       formElement?.classList.add("border-2"); // 포커스 스타일 제거
     });
   });
+
+  // TODO: 로그인 X: `로그인` 이라는 글씨
+  // TODO: 로그인 O: `내 정보 /me`
 </script>
 
 <header>

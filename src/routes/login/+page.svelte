@@ -27,7 +27,7 @@
 </script>
 
 <svelte:head>
-	<title>로그인 페이지</title>
+	<title>cbthub - 로그인</title>
 	<meta name="description" content="About this app" />
 </svelte:head>
 
@@ -41,7 +41,7 @@
 			<button type="submit" class="mb-4 bg-sky-300 text-gray-50 rounded-lg p-3 border-2 w-72">로그인</button>
 		</form>
 	</div>
-	<p class="text-sm">계정이 없으신가요?<a class="pl-2 text-sky-400" href="/signin">가입하기</a></p>
+	<p class="text-sm">계정이 없으신가요?<a class="pl-2 text-sky-400" href="/join">가입하기</a></p>
 </div>
 
 <style>
