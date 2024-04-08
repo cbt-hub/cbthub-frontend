@@ -7,7 +7,7 @@
 <div class="app">
 	<Header />
 
-	<main class="h-full">
+	<main class="h-full flex justify-center">
 		<slot />
 	</main>
 

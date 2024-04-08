@@ -2,7 +2,7 @@
   import { onMount } from "svelte";
   import { page } from "$app/stores";
   import { goto } from "$app/navigation";
-  import { fetchCategory, fetchCategoryRounds } from "$lib/api";
+  import { fetchCategory, fetchCategoryRounds } from "$lib/apis/api";
 
   let rounds: any = [];
   let category: any = {};
@@ -18,13 +18,12 @@
   });
 
   function navigateToRoundDetail(roundId: string) {
-    // 필요한 경우 사용, 각 round 상세 페이지로 이동하는 예시
-    goto(`/category/${categoryId}/round/${roundId}`);
+    goto(`/round/${roundId}`);
   }
 </script>
 
 <svelte:head>
-  <title>About</title>
+  <title>cbthub - category</title>
   <meta name="description" content="About this app" />
 </svelte:head>
 
@@ -43,7 +42,8 @@
         <tbody>
           {#each rounds as round}
             <tr>
-              <td class="p-1 pr-8"><a href="#">{round.name}</a></td>
+              <!-- svelte-ignore a11y-invalid-attribute -->
+              <td class="p-1 pr-8"><a href="#" on:click={() => navigateToRoundDetail(round.id)}>{round.name}</a></td>
               <td class="p-1 pr-8">{new Date(round.heldAt).toLocaleDateString()}</td>
               <td class="p-1 pr-8">{round.progressRate ?? ""}</td>
             </tr>

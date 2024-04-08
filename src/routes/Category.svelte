@@ -1,7 +1,7 @@
 <script lang="ts">
   import { goto } from "$app/navigation";
   import { onMount } from "svelte";
-  import { fetchCategories } from "../lib/api";
+  import { fetchCategories } from "../lib/apis/api";
 
   let categories : any[] = [];
   let rounds : any[] = [];
