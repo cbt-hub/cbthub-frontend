@@ -1,5 +1,5 @@
 // src/lib/api.ts
-const API_URL = "http://localhost:3000/api";
+export const API_URL = "http://localhost:3000/api";
 
 /**
  * @description 카테고리를 단일 조회한다.

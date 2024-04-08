@@ -1,6 +1,6 @@
 <script lang="ts">
   import { goto } from "$app/navigation";
-  import { verifyToken } from "$lib/api";
+  import { verifyToken } from "$lib/apis/api";
   import { onMount } from "svelte";
   import { writable } from "svelte/store";
 
