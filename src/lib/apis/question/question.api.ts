@@ -7,8 +7,6 @@ export async function fetchQuestion(
   id: string,
   questionId?: string
 ): Promise<ApiResponse> {
-  console.log(`questionId: ${questionId}`);
-
   const token = localStorage.getItem("access_token");
   let response: any;
 
