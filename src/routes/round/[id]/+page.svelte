@@ -15,10 +15,12 @@
 
   onMount(async () => {
     roundId = $page.params.id;
+    const questionId = $page.url.searchParams.get("questionId"); // URL에서 questionId 쿼리 파라미터를 가져옵니다.
     if (roundId) {
-      question = await fetchQuestion(roundId);
+      question = await fetchQuestion(roundId, questionId ?? ""); // 쿼리 파라미터와 함께 fetchQuestion을 호출합니다.
     }
   });
+
 
   // detail 선택 이벤트 핸들러
   function selectDetail(detailId: string): void {
@@ -82,3 +84,9 @@
     >
   </div>
 </div>
+
+<style>
+  li {
+    cursor: pointer;
+  }
+</style>
