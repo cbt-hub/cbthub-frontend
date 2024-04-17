@@ -6,7 +6,6 @@
     solveQuestion,
   } from "$lib/apis/question/question.api";
   import { writable, type Writable } from "svelte/store";
-  import { goto } from "$app/navigation";
 
   interface Detail {
     id: string;
@@ -27,6 +26,7 @@
   let roundId: string = "";
   let selectedDetailId: string | null = null; // 선택된 detail의 ID를 저장하는 상태
   let correctDetails: Writable<CorrectDetailWithIndex[]> = writable([]);
+  let showAnswers: Writable<boolean> = writable(false); // 해설을 보여줄지 말지 결정하는 상태
 
   onMount(async () => {
     roundId = $page.params.id;
@@ -88,6 +88,22 @@
       console.error("정답 확인 중 오류가 발생했습니다:", error);
     }
   }
+
+  /** 정답 확인/접기 버튼 클릭 핸들러 */
+  function toggleAnswerVisibility(): void {
+    // 선택된 상세 ID가 없으면 함수를 종료합니다.
+    if (!selectedDetailId) {
+      console.log("선택된 답안이 없습니다.");
+      return;
+    }
+
+    // showAnswers 값을 반전시키고, 현재 true가 된다면 정답 확인 로직을 실행합니다.
+    showAnswers.update((value) => !value);
+    if ($showAnswers) {
+      // 반전된 후의 값이 true면, 정답을 확인합니다.
+      checkAnswer();
+    }
+  }
 </script>
 
 <svelte:head>
@@ -128,10 +144,11 @@
   <div class="button-container flex justify-between">
     <div>
       <button
-        on:click={checkAnswer}
+        on:click={toggleAnswerVisibility}
         class="text-white text-lg rounded-lg bg-green-400 px-3 py-2 shadow-md"
-        >정답 확인</button
       >
+        {$showAnswers ? "정답 접기" : "정답 확인"}
+      </button>
     </div>
     <div class="flex">
       {#if question.questionMeta.prev === null}
@@ -166,35 +183,37 @@
       {/if}
     </div>
   </div>
-  <div class="answers py-4">
-    {#each $correctDetails as { detail, index }}
-      <div class="w-full border-t-2 mb-4"></div>
-      <div class="correct-detail flex flex-col mb-4">
-        <div
-          class="flex items-center justify-center bg-green-200 text-gray-600 rounded-sm shadow-md mb-2 w-fit py-1 px-2"
-        >
-          <p class="text-xl mr-2">정답:</p>
-          <p
-            class="rounded-full text-sm border-2 w-6 h-6 text-center border-gray-600"
-          >
-            {index + 1}
-          </p>
-        </div>
-        <p>{detail.choice}</p>
-      </div>
-      {#each question.explains as explain}
+  {#if $showAnswers}
+    <div class="answers py-4">
+      {#each $correctDetails as { detail, index }}
+        <div class="w-full border-t-2 mb-4"></div>
         <div class="correct-detail flex flex-col mb-4">
           <div
             class="flex items-center justify-center bg-green-200 text-gray-600 rounded-sm shadow-md mb-2 w-fit py-1 px-2"
           >
-            <p class="text-xl mr-2">해설:</p>
-            <p class="text-xl">{explain.type}</p>
+            <p class="text-xl mr-2">정답:</p>
+            <p
+              class="rounded-full text-sm border-2 w-6 h-6 text-center border-gray-600"
+            >
+              {index + 1}
+            </p>
           </div>
-          <p>{explain.explain}</p>
+          <p>{detail.choice}</p>
         </div>
+        {#each question.explains as explain}
+          <div class="correct-detail flex flex-col mb-4">
+            <div
+              class="flex items-center justify-center bg-green-200 text-gray-600 rounded-sm shadow-md mb-2 w-fit py-1 px-2"
+            >
+              <p class="text-xl mr-2">해설:</p>
+              <p class="text-xl">{explain.type}</p>
+            </div>
+            <p>{explain.explain}</p>
+          </div>
+        {/each}
       {/each}
-    {/each}
-  </div>
+    </div>
+  {/if}
 </div>
 
 <style>
