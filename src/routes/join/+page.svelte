@@ -5,7 +5,7 @@
    * TODO: 이메일 인증 시스템 추가하기
    * TODO: 패스워드 체크 기능 만들기
    */
-  import { join } from "$lib/api";
+  import { join } from "$lib/apis/api";
 
   let email = "";
   let password = "";

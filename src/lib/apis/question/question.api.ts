@@ -1,7 +1,9 @@
 import { API_URL } from "../api";
+import type { GetQuestionRoundClickDtos } from "./questions.response.dto";
 
 /**
  * @description Round ID에 해당하는 단일 문제를 가져오는 API
+ * @deprecated Round를 클릭하면 question을 전체조회하는 로직으로 변경
  */
 export async function fetchQuestion(
   id: string,
@@ -33,6 +35,39 @@ export async function fetchQuestion(
         },
       }
     );
+  }
+
+  if (!response.ok) {
+    throw new Error("Network response was not ok");
+  }
+
+  return response.json();
+}
+
+/**
+ * @description Round ID에 해당하는 모든 문제를 가져오는 API
+ */
+export async function fetchQuestions(
+  id: string
+): Promise<GetQuestionRoundClickDtos> {
+  const token = localStorage.getItem("access_token");
+  let response: any;
+
+  if (!token) {
+    response = await fetch(`${API_URL}/v1/rounds/${id}/questions`, {
+      method: "GET",
+      headers: {
+        Accept: "*/*",
+      },
+    });
+  } else {
+    response = await fetch(`${API_URL}/v1/rounds/${id}/questions`, {
+      method: "GET",
+      headers: {
+        Accept: "*/*",
+        Authorization: `Bearer ${token}`,
+      },
+    });
   }
 
   if (!response.ok) {
